@@ -1,0 +1,30 @@
+hostname <hostname>
+!
+no aaa new-model
+!
+ip cef
+!
+no ip domain lookup
+!
+username admin privilege 15 secret 9 $9$l2EZf1CWoDz3sE$RBL0W.xPb46gYqaZk6dBStwPvTv6FBThAG1j7YSBk/Q
+!
+!
+interface Ethernet0/0
+ ip address <ip_address> 255.255.255.0
+ <eth0_mac>
+ no shutdown
+!
+<interfaces>
+!
+ip forward-protocol nd
+!
+ip route 0.0.0.0 0.0.0.0 Ethernet0/0 <ip_gateway>
+ip domain name lan
+ip ssh version 2
+crypto key generate rsa modulus 2048
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+end
